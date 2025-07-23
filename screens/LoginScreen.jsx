@@ -7,7 +7,8 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { TextInput, Button, Text, Title } from 'react-native-paper';
+import { TextInput, Button, Text, Card } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -25,92 +26,98 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <KeyboardAvoidingView
+    <LinearGradient
+      colors={['#0D47A1', '#E65100']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
       style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={60} // opsiyonel, header varsa değeri arttır
     >
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled"
+      <KeyboardAvoidingView
         style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={60}
       >
-        <View style={styles.logoContainer}>
-          <Image
-            source={require('../assets/logo.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-        </View>
-
-        <Title style={styles.title}>Giriş Yap</Title>
-
-        <TextInput
-          label="Kullanıcı Adı"
-          value={username}
-          onChangeText={setUsername}
-          style={styles.input}
-          autoCapitalize="none"
-          autoCorrect={false}
-          autoFocus
-          mode="outlined"
-        />
-
-        <TextInput
-          label="Şifre"
-          value={password}
-          onChangeText={setPassword}
-          style={styles.input}
-          secureTextEntry={!showPassword}
-          mode="outlined"
-          right={
-            <TextInput.Icon
-              icon={showPassword ? 'eye-off' : 'eye'}
-              onPress={() => setShowPassword(!showPassword)}
-            />
-          }
-        />
-
-        {error ? <Text style={styles.error}>{error}</Text> : null}
-
-        <Button
-          mode="contained"
-          onPress={handleLogin}
-          style={styles.button}
-          icon="login"
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled"
         >
-          Giriş
-        </Button>
-      </ScrollView>
-    </KeyboardAvoidingView>
-  );
+          <Card style={styles.card}>
+            <Card.Content>
+              <View style={styles.logoContainer}>
+                <Image
+                  source={require('../assets/logo.png')}
+                  style={styles.logo}
+                  resizeMode="contain"
+                />
+              </View>
 
+
+              <TextInput
+                label="Kullanıcı Adı"
+                value={username}
+                onChangeText={setUsername}
+                style={styles.input}
+                autoCapitalize="none"
+                autoCorrect={false}
+                autoFocus={true}
+                mode="outlined"
+              />
+
+              <TextInput
+                label="Şifre"
+                value={password}
+                onChangeText={setPassword}
+                style={styles.input}
+                secureTextEntry={!showPassword}
+                mode="outlined"
+                right={
+                  <TextInput.Icon
+                    icon={showPassword ? 'eye-off' : 'eye'}
+                    onPress={() => setShowPassword(!showPassword)}
+                  />
+                }
+              />
+
+              {error ? <Text style={styles.error}>{error}</Text> : null}
+
+              <Button
+                mode="contained"
+                onPress={handleLogin}
+                style={styles.button}
+                icon="login"
+              >
+                Giriş
+              </Button>
+            </Card.Content>
+          </Card>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </LinearGradient>
+  );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'center',
+    padding: 30,
+  },
+  card: {
     padding: 20,
+    borderRadius: 15,
+    backgroundColor: 'white',
+    elevation: 5,
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 20,
   },
   logo: {
-    width: 400,
+    width: 300,
     height: 200,
-    borderRadius: 20,
+    borderRadius: 15,
   },
-  title: {
-    fontSize: 26,
-    marginBottom: 20,
-    textAlign: 'center',
-  },
+
   input: {
     marginBottom: 15,
   },

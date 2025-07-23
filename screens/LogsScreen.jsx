@@ -75,7 +75,6 @@ export default function LogsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Log Kayıtları</Text>
 
       <ScrollView
         horizontal
@@ -149,14 +148,10 @@ const getColor = (type) => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 10,
     backgroundColor: '#f4f6f8',
   },
-  header: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
+
   filterRow: {
     paddingVertical: 8,
     height: 50,
@@ -177,8 +172,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   list: {
+    paddingTop: 10,
     paddingHorizontal: 10,
-    paddingBottom: 100,
+    paddingBottom: 80,
   },
   card: {
     backgroundColor: '#fff',
