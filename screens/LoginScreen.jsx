@@ -29,6 +29,7 @@ export default function LoginScreen({ navigation }) {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
+      <Text style={styles.title}>Giriş Yap</Text>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* Logo */}
         <View style={styles.logoContainer}>

@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { Card } from 'react-native-paper';
+import { Card, PaperProvider } from 'react-native-paper';
 import { LineChart, PieChart } from 'react-native-chart-kit';
 
 const screenWidth = Dimensions.get('window').width;
 
-const HomeScreen = () => {
+const DashboardScreen = () => {
   const logCounts = [
     { name: 'Info', count: 120, color: '#4CAF50' },
     { name: 'Warning', count: 45, color: '#FFC107' },
@@ -34,26 +34,27 @@ const HomeScreen = () => {
   };
 
   return (
+
     <ScrollView style={styles.container}>
       <TouchableOpacity onPress={() => handlePress('Log Dashboard Başlığı')}>
-        <Text style={styles.title}>Log Dashboard</Text>
+        <Text style={styles.title}>Dashboard</Text>
       </TouchableOpacity>
 
       {/* Kartlar */}
       <View style={styles.cardRow}>
         {logCounts.map((item, index) => (
-         <View key={index} style={styles.cardWrapper}>
-           <TouchableOpacity onPress={() => handlePress(`${item.name} Kart`)}>
-             <Card style={[styles.card, { backgroundColor: item.color }]}>
-               <Card.Content>
+          <View key={index} style={styles.cardWrapper}>
+            <TouchableOpacity onPress={() => handlePress(`${item.name} Kart`)}>
+              <Card style={[styles.card, { backgroundColor: item.color }]}>
+                <Card.Content>
                   <Text style={styles.cardTitle}>{item.name}</Text>
                   <Text style={styles.cardValue}>{item.count}</Text>
-               </Card.Content>
+                </Card.Content>
               </Card>
-           </TouchableOpacity>
-         </View>
+            </TouchableOpacity>
+          </View>
         ))}
-     </View>
+      </View>
 
 
       {/* Line Chart */}
@@ -95,10 +96,11 @@ const HomeScreen = () => {
         />
       </TouchableOpacity>
     </ScrollView>
+
   );
 };
 
-export default HomeScreen;
+export default DashboardScreen;
 
 const styles = StyleSheet.create({
   container: {
