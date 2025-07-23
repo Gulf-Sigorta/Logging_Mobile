@@ -26,15 +26,18 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={60} // opsiyonel, header varsa değeri arttır
     >
-      <Text style={styles.title}>Giriş Yap</Text>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* Logo */}
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        keyboardShouldPersistTaps="handled"
+        style={{ flex: 1 }}
+      >
         <View style={styles.logoContainer}>
           <Image
-            source={require('../assets/logo.jpg')}
+            source={require('../assets/logo.png')}
             style={styles.logo}
             resizeMode="contain"
           />
@@ -42,7 +45,6 @@ export default function LoginScreen({ navigation }) {
 
         <Title style={styles.title}>Giriş Yap</Title>
 
-        {/* Kullanıcı Adı */}
         <TextInput
           label="Kullanıcı Adı"
           value={username}
@@ -54,7 +56,6 @@ export default function LoginScreen({ navigation }) {
           mode="outlined"
         />
 
-        {/* Şifre */}
         <TextInput
           label="Şifre"
           value={password}
@@ -64,16 +65,14 @@ export default function LoginScreen({ navigation }) {
           mode="outlined"
           right={
             <TextInput.Icon
-              name={showPassword ? 'eye-off' : 'eye'}
+              icon={showPassword ? 'eye-off' : 'eye'}
               onPress={() => setShowPassword(!showPassword)}
             />
           }
         />
 
-        {/* Hata Mesajı */}
         {error ? <Text style={styles.error}>{error}</Text> : null}
 
-        {/* Giriş Butonu */}
         <Button
           mode="contained"
           onPress={handleLogin}
@@ -85,6 +84,7 @@ export default function LoginScreen({ navigation }) {
       </ScrollView>
     </KeyboardAvoidingView>
   );
+
 }
 
 const styles = StyleSheet.create({
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 400,
+    height: 200,
     borderRadius: 20,
   },
   title: {
