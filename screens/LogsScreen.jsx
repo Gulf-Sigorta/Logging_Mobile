@@ -8,8 +8,11 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
+  TextInput,
 } from 'react-native';
 import { Card } from 'react-native-paper';
+
+// Sample logs aynen buraya kalsın
 const sampleLogs = [
   { id: '1', type: 'Info', message: 'Uygulama başlatıldı', time: '10:12' },
   { id: '2', type: 'Warning', message: 'Düşük pil seviyesi', time: '10:15' },
@@ -43,16 +46,24 @@ const sampleLogs = [
   { id: '30', type: 'Warning', message: 'Kullanıcı etkin değil', time: '12:30' },
 ];
 
-
 export default function LogsScreen() {
   const [selectedLevel, setSelectedLevel] = useState('All');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
+  const [searchText, setSearchText] = useState('');
 
-  const filteredLogs =
-    selectedLevel === 'All'
-      ? sampleLogs
-      : sampleLogs.filter((log) => log.type === selectedLevel);
+  // Filtreleme: selectedLevel ve searchText birlikte
+  const filteredLogs = sampleLogs.filter(log => {
+    const levelMatches = selectedLevel === 'All' || log.type === selectedLevel;
+    const searchLower = searchText.toLowerCase();
+
+    // Log mesajı veya seviyesi arama metnini içeriyorsa
+    const searchMatches =
+      log.message.toLowerCase().includes(searchLower) ||
+      log.type.toLowerCase().includes(searchLower);
+
+    return levelMatches && searchMatches;
+  });
 
   const openModal = (log) => {
     setSelectedLog(log);
@@ -76,6 +87,16 @@ export default function LogsScreen() {
   return (
     <View style={styles.container}>
 
+      {/* Search Bar */}
+      <TextInput
+        placeholder="Log mesajında veya seviyesinde ara..."
+        value={searchText}
+        onChangeText={setSearchText}
+        style={styles.searchInput}
+        clearButtonMode="while-editing"
+      />
+
+      {/* Seviye filtreleme butonları */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -98,6 +119,7 @@ export default function LogsScreen() {
         ))}
       </ScrollView>
 
+      {/* Log listesi */}
       <FlatList
         data={filteredLogs}
         keyExtractor={(item) => item.id}
@@ -121,7 +143,10 @@ export default function LogsScreen() {
                 <Text style={styles.modalTime}>{selectedLog.time}</Text>
               </>
             )}
-            <Pressable style={styles.closeButton} onPress={() => setModalVisible(false)}>
+            <Pressable
+              style={styles.closeButton}
+              onPress={() => setModalVisible(false)}
+            >
               <Text style={{ color: '#fff' }}>Kapat</Text>
             </Pressable>
           </View>
@@ -150,8 +175,30 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 10,
     backgroundColor: '#f4f6f8',
+    flex: 1,
+    paddingTop: 10,
   },
+<<<<<<< HEAD
 
+=======
+  header: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  searchInput: {
+    backgroundColor: '#fff',
+    marginHorizontal: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 10,
+    marginBottom: 10,
+    fontSize: 16,
+    borderColor: '#ddd',
+    borderWidth: 1,
+  },
+>>>>>>> last
   filterRow: {
     paddingVertical: 8,
     height: 50,
@@ -195,7 +242,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 
-  // Modal stilleri
   modalOverlay: {
     flex: 1,
     justifyContent: 'center',
