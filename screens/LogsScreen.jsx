@@ -178,27 +178,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 10,
   },
-<<<<<<< HEAD
-
-=======
-  header: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  searchInput: {
-    backgroundColor: '#fff',
-    marginHorizontal: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 10,
-    marginBottom: 10,
-    fontSize: 16,
-    borderColor: '#ddd',
-    borderWidth: 1,
-  },
->>>>>>> last
   filterRow: {
     paddingVertical: 8,
     height: 50,
