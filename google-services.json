@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "936701086482",
+    "project_id": "gig-logging",
+    "storage_bucket": "gig-logging.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936701086482:android:f99f450f09f504d67001cb",
+        "android_client_info": {
+          "package_name": "com.whitestatix.logging_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd549Q1GVzQzpUNEL3_N7kDBfv8TvKFSo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

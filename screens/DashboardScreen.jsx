@@ -9,7 +9,6 @@ import {
   Alert,
 } from 'react-native';
 import { Card, PaperProvider } from 'react-native-paper';
-import { LineChart, PieChart } from 'react-native-chart-kit';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -60,40 +59,13 @@ const DashboardScreen = () => {
       {/* Line Chart */}
       <TouchableOpacity onPress={() => handlePress('Line Chart')}>
         <Text style={styles.chartTitle}>Son 7 Günlük Log Sayısı</Text>
-        <LineChart
-          data={{
-            labels: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
-            datasets: [{ data: [50, 70, 90, 80, 100, 60, 75] }],
-          }}
-          width={screenWidth - 20}
-          height={220}
-          chartConfig={{
-            backgroundColor: '#ffffff',
-            backgroundGradientFrom: '#ffffff',
-            backgroundGradientTo: '#ffffff',
-            color: (opacity = 1) => `rgba(33, 150, 243, ${opacity})`,
-            strokeWidth: 2,
-          }}
-          bezier
-          style={styles.chart}
-        />
+
       </TouchableOpacity>
 
       {/* Pie Chart */}
       <TouchableOpacity onPress={() => handlePress('Pie Chart')}>
         <Text style={styles.chartTitle}>Log Dağılımı</Text>
-        <PieChart
-          data={pieData}
-          width={screenWidth - 20}
-          height={200}
-          chartConfig={{
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          }}
-          accessor="population"
-          backgroundColor="transparent"
-          paddingLeft="15"
-          absolute
-        />
+
       </TouchableOpacity>
     </ScrollView>
 
