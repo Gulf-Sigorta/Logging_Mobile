@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { Card, PaperProvider } from 'react-native-paper';
+import { Card } from 'react-native-paper';
+import { LineChart, PieChart } from 'react-native-chart-kit';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -32,8 +33,11 @@ const DashboardScreen = () => {
     Alert.alert('Tıklama', `${label} tıklandı`);
   };
 
-  return (
+  // Saatlik log etiketleri (SAAT ayrı, TARİH üstte gösterilecek)
+  const hourlyLabels = ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'];
+  const hourlyData = [5, 8, 12, 20, 18, 10, 15, 25];
 
+  return (
     <ScrollView style={styles.container}>
       <TouchableOpacity onPress={() => handlePress('Log Dashboard Başlığı')}>
         <Text style={styles.title}>Dashboard</Text>
@@ -55,20 +59,68 @@ const DashboardScreen = () => {
         ))}
       </View>
 
-
       {/* Line Chart */}
       <TouchableOpacity onPress={() => handlePress('Line Chart')}>
-        <Text style={styles.chartTitle}>Son 7 Günlük Log Sayısı</Text>
-
+        <Text style={styles.chartTitle}>Saat Bazlı Log Sayısı</Text>
       </TouchableOpacity>
+
+      {/* Tarih Başlığı */}
+      <Text style={styles.dateLabel}>Tarih: 25/07/2025</Text>
+
+      <LineChart
+        data={{
+          labels: hourlyLabels,
+          datasets: [
+            {
+              data: hourlyData,
+            },
+          ],
+        }}
+        width={screenWidth - 20}
+        height={220}
+        chartConfig={{
+          backgroundColor: '#fff',
+          backgroundGradientFrom: '#f4f6f8',
+          backgroundGradientTo: '#f4f6f8',
+          decimalPlaces: 0,
+          color: (opacity = 1) => `rgba(33, 150, 243, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          propsForDots: {
+            r: '5',
+            strokeWidth: '2',
+            stroke: '#2196F3',
+          },
+        }}
+        bezier
+        style={styles.chart}
+        onDataPointClick={({ value, index }) => {
+          const label = hourlyLabels[index];
+          Alert.alert('Saatlik Log', `25/07 ${label} saatinde ${value} log var`);
+        }}
+      />
 
       {/* Pie Chart */}
       <TouchableOpacity onPress={() => handlePress('Pie Chart')}>
         <Text style={styles.chartTitle}>Log Dağılımı</Text>
-
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => Alert.alert('Log Dağılımı', 'Daha fazla detay için çalışılıyor...')}
+      >
+        <PieChart
+          data={pieData}
+          width={screenWidth - 20}
+          height={220}
+          chartConfig={{
+            color: () => `#000`,
+          }}
+          accessor="population"
+          backgroundColor="transparent"
+          paddingLeft="15"
+          absolute
+          style={styles.chart}
+        />
       </TouchableOpacity>
     </ScrollView>
-
   );
 };
 
@@ -101,8 +153,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 3, // Android shadow
-    shadowColor: '#000', // iOS shadow
+    elevation: 3,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
@@ -125,14 +177,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignSelf: 'center',
   },
+  dateLabel: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 5,
+  },
   chart: {
     borderRadius: 10,
     marginTop: 10,
   },
-  logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 20,
-  },
 });
-
